@@ -1,7 +1,12 @@
 export default function({ getStore, getActions, setStore }) {
     return {
         store: {
-            loading: false
+            loading: false,
+            test: [
+                        { label: "Make the bed", done: false },
+                        { label: "Walk the dog", done: false },
+                        { label: "Do the replits", done: false }
+                    ]
         },
         actions: {
             setLoading(status) {

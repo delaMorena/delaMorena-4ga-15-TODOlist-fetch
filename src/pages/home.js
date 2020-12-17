@@ -6,12 +6,29 @@ import { Context } from "../store";
 export default function(props) {
     const { store, actions } = useContext(Context)
     return (
-        <div className="container">
-            <div className="jumbotron">
-                <h1>Home page</h1>
-                <button type="button" onClick={() => actions.toggleLoader()}>
-                    {store.loading ? "Parar":"Cargar"}
-                </button>
+        <div className="container-fluid">
+            <h2>todos mis ToDos</h2>
+            <div className="container">
+                <input
+                    type="text"
+                    // onChange={handleChange}
+                    // onKeyPress={handleKeyPress}
+                    placeholder="próxima tarea"
+                    >
+                </input>
+
+                <h5>Mis tareas son:</h5>
+                <ul>
+                    {store.test.map((element, index) => {
+                        return (
+                        <li key={index}>
+                            <h5 className= "task">
+                                {element.label}                                
+                            </h5>
+                        </li>
+                    )})}
+                </ul>
+                <br />
             </div>
         </div>
     )
