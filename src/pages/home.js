@@ -5,6 +5,18 @@ import { Context } from "../store";
 export default function(props) {
     const { store, actions } = useContext(Context)
     const [task, setTask] = useState();
+
+    // useEffect(()=>{
+    //      GRAN ERROR!! ESTUDIAR!!!
+    //     console.log("entro una vez");
+    //     actions.updateListTodos(store.todos);   
+    //     console.log("store.todos despues del update: ", store.todos);
+    // },[store.todos]);
+
+    useEffect(() => {
+        actions.getListTodos()
+    }, [])
+    // si pongo store.todos como dependecia no para de actualizar.
     
     const handleChange = event => {
         setTask(event.target.value);
@@ -12,20 +24,14 @@ export default function(props) {
 
     const handleKeyPress = event => {
 		if (event.key === "Enter" && task != "") {
-            //1. llamamos a la funcion de update con el paramatro a incluir
-            actions.updateListTodos(task);
-            //necesito convertir  task en objeto con label y done. ahora es un string.
-            // setStore({ todos: task })
+            actions.addTask(task); 
             setTask ("");
+            actions.updateListTodos(store.todos);
 		}
     };
+   
 
-    useEffect(() => {
-        console.log("getListTodos");
-        actions.getListTodos()
-        console.log("store.username: ", store.username);
-        // console.log("store.tasks: ", store.tasks) 
-    }, [])
+   
     
 
     return (
