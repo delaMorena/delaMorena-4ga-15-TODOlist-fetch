@@ -64,9 +64,16 @@ export default function({ getStore, getActions, setStore }) {
                 const store = getStore()
                 const taskToArray = [...store.todos]
                 taskToArray.push({"label": item, "done": false })
+                // "id": key, 
                 setStore({todos: taskToArray})
                 console.log("store.todos desde addTask: ", store.todos);  
             },
+            // deleteTask(id) {
+            //     let newList = todo.filter((element, index) => {
+            //         return (element.id !== id) // DEVUELVE TODOS LOS ELEMENTOS QUE CUMPLAN ESTE REQUISITO (LO FILTRA)
+            //     })
+            //     setTodo(newList); // DEFINO NUEVO ESTADO DE LA LISTA TODOS
+            // }
         }
     }
 };

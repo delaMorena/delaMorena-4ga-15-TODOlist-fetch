@@ -5,6 +5,7 @@ import { Context } from "../store";
 export default function(props) {
     const { store, actions } = useContext(Context)
     const [task, setTask] = useState();
+    // const [key, setKey] = useState(0);
 
     // useEffect(()=>{
     //      GRAN ERROR!! ESTUDIAR!!!
@@ -26,12 +27,10 @@ export default function(props) {
 		if (event.key === "Enter" && task != "") {
             actions.addTask(task); 
             setTask ("");
+            // setKey(key + 1);
             actions.updateListTodos(store.todos);
 		}
     };
-   
-
-   
     
 
     return (
@@ -52,6 +51,9 @@ export default function(props) {
                     {store.todos.map((element, index) => {
                         return (
                         <li key={index}>
+                            {/* <button onClick={() => deleteTask(element.id)} type="button" className="close" aria-label="Close">
+                                <span aria-hidden="true"><i className="fas fa-times"></i></span>
+                            </button> */}
                             <h5 className= "task">
                                 {element.label}                                
                             </h5>
