@@ -5,7 +5,7 @@ import { Context } from "../store";
 export default function(props) {
     const { store, actions } = useContext(Context)
     const [task, setTask] = useState();
-    // const [key, setKey] = useState(0);
+    const [key, setKey] = useState(0);
 
     // useEffect(()=>{
     //      GRAN ERROR!! ESTUDIAR!!!
@@ -25,13 +25,18 @@ export default function(props) {
 
     const handleKeyPress = event => {
 		if (event.key === "Enter" && task != "") {
-            actions.addTask(task); 
+            actions.addTask(task, key); 
             setTask ("");
-            // setKey(key + 1);
+            setKey(key + 1);
             actions.updateListTodos(store.todos);
 		}
     };
-    
+    function toggle(done){
+        done = false;
+        done =! done
+        console.log('Toggled bool of done is', done, "y el store.todos: ",store.todos); 
+        
+    };
 
     return (
         <div className="container-fluid">
@@ -51,11 +56,9 @@ export default function(props) {
                     {store.todos.map((element, index) => {
                         return (
                         <li key={index}>
-                            {/* <button onClick={() => deleteTask(element.id)} type="button" className="close" aria-label="Close">
-                                <span aria-hidden="true"><i className="fas fa-times"></i></span>
-                            </button> */}
                             <h5 className= "task">
-                                {element.label}                                
+                                {element.label}  
+                                <button onClick={()=> toggle(element.done)}> hecho </button>                         
                             </h5>
                         </li>
                     )})}

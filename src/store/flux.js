@@ -60,20 +60,14 @@ export default function({ getStore, getActions, setStore }) {
                     // });
             },
 
-            addTask(item){
+            addTask(item,key){
                 const store = getStore()
                 const taskToArray = [...store.todos]
-                taskToArray.push({"label": item, "done": false })
-                // "id": key, 
+                taskToArray.push({"id": key, "label": item, "done": false })
                 setStore({todos: taskToArray})
                 console.log("store.todos desde addTask: ", store.todos);  
             },
-            // deleteTask(id) {
-            //     let newList = todo.filter((element, index) => {
-            //         return (element.id !== id) // DEVUELVE TODOS LOS ELEMENTOS QUE CUMPLAN ESTE REQUISITO (LO FILTRA)
-            //     })
-            //     setTodo(newList); // DEFINO NUEVO ESTADO DE LA LISTA TODOS
-            // }
+           
         }
     }
 };
