@@ -6,6 +6,7 @@ export default function(props) {
     const { store, actions } = useContext(Context)
     const [task, setTask] = useState();
     const [key, setKey] = useState(0);
+    const [checked, setChecked] = useState(false);
 
     // useEffect(()=>{
     //      GRAN ERROR!! ESTUDIAR!!!
@@ -22,6 +23,7 @@ export default function(props) {
     const handleChange = event => {
         setTask(event.target.value);
     };
+    const toggleChecked = () => setChecked(value => !value);
 
     const handleKeyPress = event => {
 		if (event.key === "Enter" && task != "") {
@@ -31,12 +33,12 @@ export default function(props) {
             actions.updateListTodos(store.todos);
 		}
     };
-    function toggle(done){
-        done = false;
-        done =! done
-        console.log('Toggled bool of done is', done, "y el store.todos: ",store.todos); 
+    // function toggle(item){
+    //     item = false;
+    //     item =! item
+    //     console.log('Toggled bool of item is', item, "y el store.todos.done: ",store.todos.done); 
         
-    };
+    // };
 
     return (
         <div className="container-fluid">
@@ -58,7 +60,15 @@ export default function(props) {
                         <li key={index}>
                             <h5 className= "task">
                                 {element.label}  
-                                <button onClick={()=> toggle(element.done)}> hecho </button>                         
+                                {/* <button onClick={()=> 
+                                    toggle(element.done),
+                                    console.log("element.done: ",element.done)
+                                    }> hecho </button>    */}
+                                    <input
+                                    type="checkbox"
+                                    checked={checked}
+                                    onChange={toggleChecked}
+                                    />                      
                             </h5>
                         </li>
                     )})}

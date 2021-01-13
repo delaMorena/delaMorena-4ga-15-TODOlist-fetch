@@ -24,6 +24,7 @@ export default function({ getStore, getActions, setStore }) {
                 .then((body) => {
                     console.log("Este es el body del request", body);
                     setStore({ todos: body })
+                    store.todos.map((value, index) => {value["id"] = Math.floor(Math.random()* 100000 +1)});
                     console.log("y esta la variable actualiza con setStore store.todos: ", store.todos);
                 })
                 .catch(error => {
@@ -67,6 +68,10 @@ export default function({ getStore, getActions, setStore }) {
                 setStore({todos: taskToArray})
                 console.log("store.todos desde addTask: ", store.todos);  
             },
+            deleteTask(item){
+                const store = getStore()
+
+            }
            
         }
     }
