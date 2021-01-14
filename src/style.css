@@ -27,9 +27,31 @@ ul {
 .task {
     color: #dbedf3;
 }
+.taskDone {
+    color: dbedf3;
+    text-decoration: line-through;
+}
 span {
     color: #00818a;
 }
+button {
+  background-color: white;
+  border: none;
+  color: white;
+  padding: 5px 10px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 15px;
+  margin: 5px 5px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  color: black;
+  border: 2px solid #e7e7e7;
+}
+
+button:hover 
+    {background-color: #e7e7e7;}
 
 
 /* button {
