@@ -27,7 +27,10 @@ export default function(props) {
 		}
     };
     // MANEJADOR DEL CHECKBOX
-    const handleClickDone = (index) => {setDone(index)};
+    const handleClickDone = (index) => {
+        setDone(index)
+        actions.deleteTask()
+    };
     // function toggle(item){
     //     item = false;
     //     item =! item
