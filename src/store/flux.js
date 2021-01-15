@@ -57,22 +57,39 @@ export default function({ getStore, getActions, setStore }) {
                     // })
                     // .catch(error => {
                     //     //error handling
-                    //     console.log(error);
+                    //     console.log(error, "he llegado");
                     // });
             },
 
-            addTask(item,key){
+            addTask(item){
                 const store = getStore()
                 const taskToArray = [...store.todos]
-                taskToArray.push({"id": key, "label": item, "done": false })
+                taskToArray.push({ "label": item, "done": false })
                 setStore({todos: taskToArray})
                 console.log("store.todos desde addTask: ", store.todos);  
             },
-            deleteTask(item){
+            deleteTask(){
                 const store = getStore()
+                const newListNoTask = store.todos.filter((element, id) => {
+                    console.log("llego aqui")
+                    return (element.id !== id)   
+                })
+                console.log("llego aqui tb")
+                setStore({todos: newListNoTask})
+                console.log(store.todos, newListNoTask, "despues de filter")
 
+            },
+            toggle(item){       
+                item = false;
+                item =! item
+                // que se ejecute onclick y cambie a true y luego llame o lo que sea a borrar. if store.todos.done == true sacar. 
+            },
+            deleteTaskDone(){
+                const store = getStore()
+                if (store.todos.done == true) {
+                    console.log("que lo borre")
+                } 
             }
-           
         }
     }
 };

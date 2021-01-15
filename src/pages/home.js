@@ -5,7 +5,7 @@ import { Context } from "../store";
 export default function(props) {
     const { store, actions } = useContext(Context)
     const [task, setTask] = useState();
-    const [key, setKey] = useState(0);
+    // const [key, setKey] = useState(0);
     const [done, setDone] = useState();
 
     useEffect(() => {
@@ -20,16 +20,17 @@ export default function(props) {
     // MANEJADOR DE LA FUNCIÓN QUE GUARDA EN STORE.TODOS
     const handleKeyPress = event => {
 		if (event.key === "Enter" && task != "") {
-            actions.addTask(task, key); 
+            actions.addTask(task); 
             setTask ("");
-            setKey(key + 1);
+            // setKey(key + 1);
             actions.updateListTodos(store.todos);
 		}
     };
     // MANEJADOR DEL CHECKBOX
     const handleClickDone = (index) => {
-        setDone(index)
-        actions.deleteTask()
+        // setDone(index)
+        // actions.deleteTask(store.todos.id)
+        // actions.updateListTodos(store.todos);
     };
     // function toggle(item){
     //     item = false;
@@ -55,10 +56,17 @@ export default function(props) {
                 <ul>
                     {store.todos.map((element, index) => {
                         return (
-                        <li key={index} className= 
+                        <li key={element.id} className= 
                         {done === index ? "taskDone": "task"}>
                             {element.label} 
-                            <button onClick= {() => handleClickDone(index)} name={index}>Done</button>
+                            <button onClick= {() => {
+                                handleClickDone(index)
+                                setDone(index)
+                                actions.deleteTask(index)
+                                actions.updateListTodos(store.todos);
+                            }
+                            
+                            } name={index}>Done</button>
                         </li>
                     )})}
                 </ul>
