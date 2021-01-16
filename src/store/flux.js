@@ -24,7 +24,7 @@ export default function({ getStore, getActions, setStore }) {
                 .then((body) => {
                     console.log("Este es el body del request", body);
                     setStore({ todos: body })
-                    store.todos.map((value, index) => {value["id"] = index + 1})
+                    store.todos.map((value, index) => {value["id"] = index})
                     console.log("y esta la variable actualiza con setStore store.todos: ", store.todos);
                 })
                 .catch(error => {
@@ -43,60 +43,38 @@ export default function({ getStore, getActions, setStore }) {
                         "Content-Type": "application/json" }
                     };
                 fetch(endpoint, config)
-                    // .then(resp => {
-                    //     console.log("changes: ", changes)
-                    //     console.log(resp.ok); // will be true if the response is successfull
-                    //     console.log(resp.status); // the status code = 200 or code = 400 etc.
-                    //     console.log(resp.text()); // will try return the exact result as string
-                    //     return resp.json(); // (returns promise) will try to parse the result as json as return a promise that you can .then for results
-                    // })
-                    // .then(data => {
-                    //     const store = getStore()
-                    //     //here is were your code should start after the fetch finishes
-                    //     console.log(store.todos, data); //this will print on the console the exact object received from the server
-                    // })
-                    // .catch(error => {
-                    //     //error handling
-                    //     console.log(error, "he llegado");
-                    // });
-            },
+            },        
 
             addTask(item){
                 const store = getStore()
                 const taskToArray = [...store.todos]
-                taskToArray.push({ "label": item, "done": false, "id": index })
+                taskToArray.push({ "label": item, "done": false, "id" : (Math.floor(Math.random()*1000)+1)})
                 setStore({todos: taskToArray})
                 console.log("store.todos desde addTask: ", store.todos);  
             },
-            // deleteTask(){
-            //     const store = getStore()
-            //     const newListNoTask = store.todos.filter((element, id) => {
-            //         console.log("llego aqui")
-            //         return (element.id !== id)   
-            //     })
-            //     console.log("llego aqui tb")
-            //     setStore({todos: newListNoTask})
-            //     console.log(store.todos, newListNoTask, "despues de filter")
-
-            // },
-            toggle(index){  
-                const store = getStore()    
-                store.todos.done =! store.todos.done;  
-                // item = false;
-                // item =! item
-                // que se ejecute onclick y cambie a true y luego llame o lo que sea a borrar. if store.todos.done == true sacar. 
-            },
-            deleteTaskDone(index){
+    
+            deleteTask(value) {
                 const store = getStore()
-                if (store.todos.done == true && store.todos.id == index) {
-                    let newList = store.todos.filter((element, index) => {
-                        console.log("se ejecuta esto")
-                     return (element.index !== index) // DEVUELVE TODOS LOS ELEMENTOS QUE CUMPLAN ESTE REQUISITO (LO FILTRA)
-                    })
-                setStore({todos: newList}); // DEFINO NUEVO ESTADO DE LA LISTA TODOS
-                    console.log("que lo borre")
-                } 
+                const taskOut = store.todos.filter((item, index) => {
+                    return (value != item.id)
+                })
+                setStore({ todos: taskOut})
             }
         }
     }
 };
+
+
+//// ANOTACIONES PARA TRABAJAR EN MENTORÍA
+            // toggle(){  
+            //     const store = getStore()
+            //     store.todos.done =! store.todos.done;  
+                
+            //     // que se ejecute onclick y cambie a true y luego llame o lo que sea a borrar. if store.todos.done == true sacar. 
+            // },
+            // deleteTaskDone(){
+            //     const store = getStore()
+            //     if (store.todos.done == true) {
+            //         console.log("se ejecuta deleteTaskDone ", store.todos.done)
+            //     } 
+            // },

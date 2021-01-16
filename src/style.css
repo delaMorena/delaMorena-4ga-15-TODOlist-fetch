@@ -23,21 +23,21 @@ h5 {
 ul {
     background-color: #283149;
     color: #dbedf3;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
+
 .task {
     color: #dbedf3;
-}
-.taskDone {
-    color: dbedf3;
-    text-decoration: line-through;
 }
 span {
     color: #00818a;
 }
 button {
-  background-color: white;
+  background-color: grey;
   border: none;
-  color: white;
+  color: grey;
   padding: 5px 10px;
   text-align: center;
   text-decoration: none;
@@ -63,9 +63,8 @@ button:hover
     display: inline-block;
     font-size: 16px;
 } */
-/* .done {
-    margin-left: 4rem;
-}
-.yes {
+
+/* .taskDone {
+    color: dbedf3;
     text-decoration: line-through;
 } */

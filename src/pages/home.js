@@ -5,8 +5,6 @@ import { Context } from "../store";
 export default function(props) {
     const { store, actions } = useContext(Context)
     const [task, setTask] = useState();
-    // const [key, setKey] = useState(0);
-    const [done, setDone] = useState();
 
     useEffect(() => {
         actions.getListTodos()
@@ -25,14 +23,7 @@ export default function(props) {
             actions.updateListTodos(store.todos);
 		}
     };
-    // MANEJADOR DEL CHECKBOX
-    const handleClickDone = (index) => {
-        setDone(index)
-        actions.toggle()
-        actions.deleteTaskDone(store.todos.id)
-        actions.updateListTodos(store.todos);
-    };
-
+  
     return (
         <div className="container-fluid">
             <h2>todos mis ToDos</h2>
@@ -50,11 +41,16 @@ export default function(props) {
                 <ul>
                     {store.todos.map((element, index) => {
                         return (
-                        <li key={index} className= 
-                        {done === index ? "taskDone": "task"}>
-                            {element.label} index: {index} element.id:{element.id}
-                            <button onClick= {handleClickDone}
-                            name={index}>Done</button>
+                        <li key={index} className="task">
+                            <h6> 
+                               <button 
+                                onClick={() => {
+                                    actions.deleteTask(element.id)
+                                    actions.updateListTodos(store.todos)
+                                }}>ok
+                                </button> {element.label} 
+                            </h6> 
+                            
                         </li>
                     )})}
                 </ul>
@@ -63,3 +59,15 @@ export default function(props) {
         </div>
     )
 }
+// ANOTACIONES PARA TRABAJAR EN MENTORÍA:
+
+  // MANEJADOR DEL BUTTON
+    // const handleClickDone = (index) => {
+    //     actions.toggle()
+    //     console.log("he llegado al home")
+    //     actions.updateListTodos(store.todos);
+    // };
+    // const handleClick = (() =>  {
+    //     actions.deleteLabel(element.id)
+    //     actions.updateListTodos()
+    // })
