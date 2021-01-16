@@ -24,7 +24,7 @@ export default function({ getStore, getActions, setStore }) {
                 .then((body) => {
                     console.log("Este es el body del request", body);
                     setStore({ todos: body })
-                    store.todos.map((value, index) => {value["id"] = Math.floor(Math.random()* 100000 +1)});
+                    store.todos.map((value, index) => {value["id"] = index + 1})
                     console.log("y esta la variable actualiza con setStore store.todos: ", store.todos);
                 })
                 .catch(error => {
@@ -64,29 +64,36 @@ export default function({ getStore, getActions, setStore }) {
             addTask(item){
                 const store = getStore()
                 const taskToArray = [...store.todos]
-                taskToArray.push({ "label": item, "done": false })
+                taskToArray.push({ "label": item, "done": false, "id": index })
                 setStore({todos: taskToArray})
                 console.log("store.todos desde addTask: ", store.todos);  
             },
-            deleteTask(){
-                const store = getStore()
-                const newListNoTask = store.todos.filter((element, id) => {
-                    console.log("llego aqui")
-                    return (element.id !== id)   
-                })
-                console.log("llego aqui tb")
-                setStore({todos: newListNoTask})
-                console.log(store.todos, newListNoTask, "despues de filter")
+            // deleteTask(){
+            //     const store = getStore()
+            //     const newListNoTask = store.todos.filter((element, id) => {
+            //         console.log("llego aqui")
+            //         return (element.id !== id)   
+            //     })
+            //     console.log("llego aqui tb")
+            //     setStore({todos: newListNoTask})
+            //     console.log(store.todos, newListNoTask, "despues de filter")
 
-            },
-            toggle(item){       
-                item = false;
-                item =! item
+            // },
+            toggle(index){  
+                const store = getStore()    
+                store.todos.done =! store.todos.done;  
+                // item = false;
+                // item =! item
                 // que se ejecute onclick y cambie a true y luego llame o lo que sea a borrar. if store.todos.done == true sacar. 
             },
-            deleteTaskDone(){
+            deleteTaskDone(index){
                 const store = getStore()
-                if (store.todos.done == true) {
+                if (store.todos.done == true && store.todos.id == index) {
+                    let newList = store.todos.filter((element, index) => {
+                        console.log("se ejecuta esto")
+                     return (element.index !== index) // DEVUELVE TODOS LOS ELEMENTOS QUE CUMPLAN ESTE REQUISITO (LO FILTRA)
+                    })
+                setStore({todos: newList}); // DEFINO NUEVO ESTADO DE LA LISTA TODOS
                     console.log("que lo borre")
                 } 
             }

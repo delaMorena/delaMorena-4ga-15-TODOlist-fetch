@@ -22,22 +22,16 @@ export default function(props) {
 		if (event.key === "Enter" && task != "") {
             actions.addTask(task); 
             setTask ("");
-            // setKey(key + 1);
             actions.updateListTodos(store.todos);
 		}
     };
     // MANEJADOR DEL CHECKBOX
     const handleClickDone = (index) => {
-        // setDone(index)
-        // actions.deleteTask(store.todos.id)
-        // actions.updateListTodos(store.todos);
+        setDone(index)
+        actions.toggle()
+        actions.deleteTaskDone(store.todos.id)
+        actions.updateListTodos(store.todos);
     };
-    // function toggle(item){
-    //     item = false;
-    //     item =! item
-    //     console.log('Toggled bool of item is', item, "y el store.todos.done: ",store.todos.done); 
-        
-    // };
 
     return (
         <div className="container-fluid">
@@ -56,17 +50,11 @@ export default function(props) {
                 <ul>
                     {store.todos.map((element, index) => {
                         return (
-                        <li key={element.id} className= 
+                        <li key={index} className= 
                         {done === index ? "taskDone": "task"}>
-                            {element.label} 
-                            <button onClick= {() => {
-                                handleClickDone(index)
-                                setDone(index)
-                                actions.deleteTask(index)
-                                actions.updateListTodos(store.todos);
-                            }
-                            
-                            } name={index}>Done</button>
+                            {element.label} index: {index} element.id:{element.id}
+                            <button onClick= {handleClickDone}
+                            name={index}>Done</button>
                         </li>
                     )})}
                 </ul>
